@@ -10,6 +10,7 @@ WordsDetection
     git clone https://github.com/jpbirdy/WordsDetection.git
     cd WordsDetection
     mvn install -DskipTests -Dfile.encoding=UTF-8
+需要配置maven和jdk，java版本1.6以上
 
 成功安装后会出现如下的提示
 
@@ -42,4 +43,44 @@ word_detection/target/word_detection-1.0-SNAPSHOT-jar-with-dependencies.jar 和
 weibo_spider文件夹（文件夹和jar包同级）拷贝至任意目录下，并在该目录下运行
 
     java -Xms4096m -Xmx4096m -Dfile.encoding=UTF-8 -cp word_detection-1.0-SNAPSHOT-jar-with-dependencies.jar jpbirdy.detection.NewWordDec
-执行结束后，会在该目录下生成weibo_newword文件夹，存放本次识别的10W组新词   
+执行结束后，会在该目录下生成weibo_newwords文件夹，存放本次识别的10W组新词   
+
+对于样例数据，执行的结果如下：
+    
+    微博 51 n 
+    微信 10 n 
+    雨转 30 n 
+    e租宝 5 n 
+    男神 11 n 
+    锅里 7 n 
+    垃圾分类 5 n 
+    鸡条 4 n 
+    新帕萨特 4 n 
+    吐槽 5 n 
+    佛牌 10 n 
+    韩版 4 n 
+    阵雨转 16 n 
+    摩羯 6 n 
+    子座 141 n 
+    里放 6 n 
+    超赞 6 n 
+    天猫 4 n 
+    葳ィ言 10 n 
+    羊座 14 n 
+    锅中 5 n 
+    羯座 5 n 
+    级转 41 n 
+    奢姿 3 n 
+    洁面 5 n 
+    加微信 4 n 
+    唇部肌肤 3 n 
+    亻言 5 n 
+    陈皮 3 n 
+    专享礼 21 n 
+    金坑梯田 3 n 
+    俞灏明 3 n 
+    杨幂 3 n 
+    鸡脯 3 n 
+    吃吃 3 n 
+    亚投行 3 n 
+    微信号 3 n 
