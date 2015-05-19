@@ -66,7 +66,7 @@ public class PartOfSpeech
         map.put("",new SpeechEntity("none","无词性",""));
         try
         {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(Bootstrap.class.getResource("/main/resources/speech.txt").getPath()))));
+            BufferedReader br = new BufferedReader(new InputStreamReader(Bootstrap.class.getResourceAsStream("/main/resources/speech.txt")));
             String temp;
             while( (temp = br.readLine()) != null)
             {

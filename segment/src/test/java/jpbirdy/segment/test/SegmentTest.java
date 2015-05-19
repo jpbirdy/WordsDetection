@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class SegmentTest
 {
-    @Test
+    @Test(expected = OutOfMemoryError.class)
     public void testSegmenter() throws IOException
     {
         Segmenter seg = new Segmenter();

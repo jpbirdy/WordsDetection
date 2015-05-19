@@ -39,15 +39,14 @@ public class StopWord
         if(stopWords != null) return ;
         stopWords = new ArrayList<String>();
         stopWords.add(" ");
-        File stopFile = new File(Bootstrap.class.getResource("/main/resources/stops.txt").getPath());
+        InputStream stopFile = Bootstrap.class.getResourceAsStream("/main/resources/stops.txt");
 
-        System.out.println(stopFile.getAbsolutePath());
-        if(!stopFile.exists())
+        if(stopFile == null)
         {
-            System.err.println("字典文件不存在！");
+            System.err.println("停词文件不存在！");
             return;
         }
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(stopFile)));
+        BufferedReader br = new BufferedReader(new InputStreamReader(stopFile));
 
         String line;
 

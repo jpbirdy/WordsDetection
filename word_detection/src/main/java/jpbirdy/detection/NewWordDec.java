@@ -221,28 +221,14 @@ public class NewWordDec
                 }
             }
         }
-//        System.out.println(newWords);
     }
 
 
     public static void main(String[] args) throws Exception
     {
-
-
         StopWord.seg = new Segmenter();
-
         NewWordDec dec = new NewWordDec();
-
-//        dec.loadFile("data/demo/201505191009.txt");
-//        dec.loadFile("data/weibo/201412140740.txt");
-//        dec.loadFile("data/weibo/201412140647.txt");
-//        dec.loadFile("data/weibo/201412140522.txt");
-
         dec.loadDir("weibo_spider");
-//        dec.loadDir("data/weibo/20150519");
-
         dec.printNewWords();
-
-
     }
 }

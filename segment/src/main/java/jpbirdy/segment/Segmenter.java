@@ -57,14 +57,13 @@ public class Segmenter
         {
             System.out.println("正在载入字典 " + files[i]);
 //            File dictFile = new File(files[i]);
-            File dictFile = new File(Bootstrap.class.getResource("/"+files[i]).getPath());
-            System.out.println(dictFile.getAbsolutePath());
-            if(!dictFile.exists())
+            InputStream is  = Bootstrap.class.getResourceAsStream("/"+files[i]);
+            if(is == null)
             {
                 System.err.println("字典文件不存在！");
                 continue;
             }
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(dictFile)));
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             String line;
             String text;
