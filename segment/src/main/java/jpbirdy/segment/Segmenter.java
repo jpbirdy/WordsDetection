@@ -5,7 +5,6 @@
 package jpbirdy.segment;
 
 
-import com.sun.jdi.Bootstrap;
 import jpbirdy.segment.util.Jumper;
 import jpbirdy.segment.util.PartOfSpeech;
 
@@ -57,7 +56,7 @@ public class Segmenter
         {
             System.out.println("正在载入字典 " + files[i]);
 //            File dictFile = new File(files[i]);
-            InputStream is  = Bootstrap.class.getResourceAsStream("/"+files[i]);
+            InputStream is  = Class.class.getClassLoader().getResourceAsStream("/" + files[i]);
             if(is == null)
             {
                 System.err.println("字典文件不存在！");

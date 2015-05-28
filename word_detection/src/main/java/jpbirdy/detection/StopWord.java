@@ -4,7 +4,6 @@
 
 package jpbirdy.detection;
 
-import com.sun.jdi.Bootstrap;
 import jpbirdy.segment.Segmenter;
 
 import java.io.*;
@@ -39,7 +38,7 @@ public class StopWord
         if(stopWords != null) return ;
         stopWords = new ArrayList<String>();
         stopWords.add(" ");
-        InputStream stopFile = Bootstrap.class.getResourceAsStream("/main/resources/stops.txt");
+        InputStream stopFile = Class.class.getClassLoader().getResourceAsStream("/main/resources/stops.txt");
 
         if(stopFile == null)
         {
