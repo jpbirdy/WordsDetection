@@ -56,7 +56,7 @@ public class Segmenter
         {
             System.out.println("正在载入字典 " + files[i]);
 //            File dictFile = new File(files[i]);
-            InputStream is  = Class.class.getClassLoader().getResourceAsStream("/" + files[i]);
+            InputStream is  = Segmenter.class.getClassLoader().getResourceAsStream(files[i]);
             if(is == null)
             {
                 System.err.println("字典文件不存在！");
@@ -77,6 +77,7 @@ public class Segmenter
                 if(lineSplit.length == 2)
                 {
                     text = lineSplit[0];
+                    System.out.println(lineSplit[0] + lineSplit[1]);
                     frequency = Integer.parseInt(lineSplit[1]);
                     pos = new PartOfSpeech();
                 }
