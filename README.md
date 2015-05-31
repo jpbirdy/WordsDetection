@@ -6,6 +6,12 @@ WordsDetection
 * 支持[中文分词](segment/README.md)
 * 支持新词发现
 
+# UPDATE
+
+## update 1.1 
+* 修改在JDK7以上版本Bootstrap类被取消的问题，统一改为使用ClassLoader
+* 修改在默认编码环境为非UTF-8导致的乱码问题
+
 # 安装&编译
     git clone https://github.com/jpbirdy/WordsDetection.git
     cd WordsDetection

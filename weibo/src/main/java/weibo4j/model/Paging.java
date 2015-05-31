@@ -32,9 +32,9 @@ package weibo4j.model;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public class Paging implements java.io.Serializable {
-	private static final long serialVersionUID = -3285857427993796670L;
-   
-	private int page = -1;              //页码。注意：最多返回200条分页内容。
+    private static final long serialVersionUID = -3285857427993796670L;
+
+    private int page = -1;              //页码。注意：最多返回200条分页内容。
     private int count = -1;             //指定每页返回的记录条数。
     private long sinceId = -1;          //若指定此参数，则只返回ID比since_id大（即比since_id发表时间晚的）的微博消息。
     private long maxId = -1;            //若指定此参数，则返回ID小于或等于max_id的微博消息
@@ -54,6 +54,7 @@ public class Paging implements java.io.Serializable {
         this(page);
         setCount(count);
     }
+
     public Paging(int page, long sinceId) {
         this(page);
         setSinceId(sinceId);

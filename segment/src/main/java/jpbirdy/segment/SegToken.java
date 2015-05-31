@@ -17,8 +17,7 @@ import java.util.List;
  * @date 14-11-22 20:42
  * @desc
  */
-public class SegToken
-{
+public class SegToken {
     // 分词的字串,这实际上是个字元数组
     private List<String> text;
 
@@ -35,13 +34,11 @@ public class SegToken
 
     private List<Segment> segments;
 
-    public SegToken()
-    {
+    public SegToken() {
         segments = new ArrayList<Segment>();
     }
 
-    public SegToken(List<String> text , int frequency , double distance , PartOfSpeech pos)
-    {
+    public SegToken(List<String> text, int frequency, double distance, PartOfSpeech pos) {
         this.text = text;
         this.frequency = frequency;
         this.distance = distance;
@@ -50,59 +47,48 @@ public class SegToken
     }
 
 
-    public List<String> getText()
-    {
+    public List<String> getText() {
         return text;
     }
 
-    public void setText(List<String> text)
-    {
+    public void setText(List<String> text) {
         this.text = text;
     }
 
-    public int getFrequency()
-    {
+    public int getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(int frequency)
-    {
+    public void setFrequency(int frequency) {
         this.frequency = frequency;
     }
 
-    public double getDistance()
-    {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance)
-    {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
-    public PartOfSpeech getPos()
-    {
+    public PartOfSpeech getPos() {
         return pos;
     }
 
-    public void setPos(PartOfSpeech pos)
-    {
+    public void setPos(PartOfSpeech pos) {
         this.pos = pos;
     }
 
 
-    public List<Segment> getSegments()
-    {
+    public List<Segment> getSegments() {
         return segments;
     }
 
-    public void setSegments(List<Segment> segments)
-    {
+    public void setSegments(List<Segment> segments) {
         this.segments = segments;
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         System.out.println("Hello World!");
     }
 }

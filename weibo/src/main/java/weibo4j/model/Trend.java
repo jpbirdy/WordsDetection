@@ -35,20 +35,19 @@ import weibo4j.org.json.JSONObject;
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Weibo4J 1.2.1
  */
-public class Trend implements java.io.Serializable{
+public class Trend implements java.io.Serializable {
     private String name;
     private String query = null;
     private long amount;
     private long delta;
     private static final long serialVersionUID = 1925956704460743946L;
 
-    public Trend(JSONObject json) throws JSONException
-    {
+    public Trend(JSONObject json) throws JSONException {
         this.name = json.getString("name");
         if (!json.isNull("query")) {
             this.query = json.getString("query");
         }
-        this.amount =json.getLong("amount");
+        this.amount = json.getLong("amount");
         this.delta = json.getLong("delta");
     }
 
@@ -62,37 +61,40 @@ public class Trend implements java.io.Serializable{
     }
 
     public long getAmount() {
-		return amount;
-	}
+        return amount;
+    }
 
-	public void setAmount(long amount) {
-		this.amount = amount;
-	}
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
 
-	public long getDelta() {
-		return delta;
-	}
+    public long getDelta() {
+        return delta;
+    }
 
-	public void setDelta(long delta) {
-		this.delta = delta;
-	}
+    public void setDelta(long delta) {
+        this.delta = delta;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setQuery(String query) {
-		this.query = query;
-	}
+    public void setQuery(String query) {
+        this.query = query;
+    }
 
-	@Override
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Trend)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Trend))
+            return false;
 
         Trend trend = (Trend) o;
 
-        if (!name.equals(trend.name)) return false;
+        if (!name.equals(trend.name))
+            return false;
         if (query != null ? !query.equals(trend.query) : trend.query != null)
             return false;
 
@@ -106,10 +108,9 @@ public class Trend implements java.io.Serializable{
         return result;
     }
 
-	@Override
-	public String toString() {
-		return "Trend [name=" + name + ", query=" + query + ", amount="
-				+ amount + ", delta=" + delta + "]";
-	}
-    
+    @Override
+    public String toString() {
+        return "Trend [name=" + name + ", query=" + query + ", amount=" + amount + ", delta=" + delta + "]";
+    }
+
 }

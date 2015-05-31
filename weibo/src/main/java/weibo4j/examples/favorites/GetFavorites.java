@@ -9,17 +9,18 @@ import java.util.List;
 
 public class GetFavorites {
 
-	public static void main(String[] args) {
-		String access_token = args[0];
-		Favorite fm = new Favorite(access_token);
-		try {
-			List<Favorites> favors = fm.getFavorites();
-			for(Favorites s : favors){
-				Log.logInfo(s.toString());
-			}
-		} catch (WeiboException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        String access_token = args[0];
+        Favorite fm = new Favorite(access_token);
+        try {
+            List<Favorites> favors = fm.getFavorites();
+            for (Favorites s : favors) {
+                Log.logInfo(s.toString());
+            }
+        }
+        catch (WeiboException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

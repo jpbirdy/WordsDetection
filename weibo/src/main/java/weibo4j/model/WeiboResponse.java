@@ -43,14 +43,14 @@ import java.util.*;
 
 /**
  * Super class of Weibo Response objects.
- * 
+ *
+ * @author Yusuke Yamamoto - yusuke at mac.com
  * @see weibo4j.DirectMessage
  * @see weibo4j.model.Status
  * @see weibo4j.model.User
- * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public class WeiboResponse implements java.io.Serializable {
-    private static Map<String,SimpleDateFormat> formatMap = new HashMap<String,SimpleDateFormat>();
+    private static Map<String, SimpleDateFormat> formatMap = new HashMap<String, SimpleDateFormat>();
     private static final long serialVersionUID = 3519962197957449562L;
     private transient int rateLimitLimit = -1;
     private transient int rateLimitRemaining = -1;
@@ -62,28 +62,27 @@ public class WeiboResponse implements java.io.Serializable {
 
     public WeiboResponse(Response res) {
         String limit = res.getResponseHeader("X-RateLimit-Limit");
-        if(null != limit){
+        if (null != limit) {
             rateLimitLimit = Integer.parseInt(limit);
         }
         String remaining = res.getResponseHeader("X-RateLimit-Remaining");
-        if(null != remaining){
+        if (null != remaining) {
             rateLimitRemaining = Integer.parseInt(remaining);
         }
         String reset = res.getResponseHeader("X-RateLimit-Reset");
-        if(null != reset){
+        if (null != reset) {
             rateLimitReset = Long.parseLong(reset);
         }
     }
 
-    protected static void ensureRootNodeNameIs(String rootName, Element elem) throws WeiboException
-    {
+    protected static void ensureRootNodeNameIs(String rootName, Element elem) throws WeiboException {
         if (!rootName.equals(elem.getNodeName())) {
-            throw new WeiboException("Unexpected root node name:" + elem.getNodeName() + ". Expected:" + rootName + ". Check the availability of the Weibo API at http://open.t.sina.com.cn/.");
+            throw new WeiboException("Unexpected root node name:" + elem.getNodeName() + ". Expected:" + rootName +
+                    ". Check the availability of the Weibo API at http://open.t.sina.com.cn/.");
         }
     }
 
-    protected static void ensureRootNodeNameIs(String[] rootNames, Element elem) throws WeiboException
-    {
+    protected static void ensureRootNodeNameIs(String[] rootNames, Element elem) throws WeiboException {
         String actualRootName = elem.getNodeName();
         for (String rootName : rootNames) {
             if (rootName.equals(actualRootName)) {
@@ -97,14 +96,15 @@ public class WeiboResponse implements java.io.Serializable {
             }
             expected += rootNames[i];
         }
-        throw new WeiboException("Unexpected root node name:" + elem.getNodeName() + ". Expected:" + expected + ". Check the availability of the Weibo API at http://open.t.sina.com.cn/.");
+        throw new WeiboException("Unexpected root node name:" + elem.getNodeName() + ". Expected:" + expected +
+                ". Check the availability of the Weibo API at http://open.t.sina.com.cn/.");
     }
 
-    protected static void ensureRootNodeNameIs(String rootName, Document doc) throws WeiboException
-    {
+    protected static void ensureRootNodeNameIs(String rootName, Document doc) throws WeiboException {
         Element elem = doc.getDocumentElement();
         if (!rootName.equals(elem.getNodeName())) {
-            throw new WeiboException("Unexpected root node name:" + elem.getNodeName() + ". Expected:" + rootName + ". Check the availability of the Weibo API at http://open.t.sina.com.cn/");
+            throw new WeiboException("Unexpected root node name:" + elem.getNodeName() + ". Expected:" + rootName +
+                    ". Check the availability of the Weibo API at http://open.t.sina.com.cn/");
         }
     }
 
@@ -113,11 +113,11 @@ public class WeiboResponse implements java.io.Serializable {
         return "nil-classes".equals(root) || "nilclasses".equals(root);
     }
 
-    protected static String getChildText( String str, Element elem ) {
-        return HTMLEntity.unescape(getTextContent(str,elem));
+    protected static String getChildText(String str, Element elem) {
+        return HTMLEntity.unescape(getTextContent(str, elem));
     }
 
-    protected static String getTextContent(String str, Element elem){
+    protected static String getTextContent(String str, Element elem) {
         NodeList nodelist = elem.getElementsByTagName(str);
         if (nodelist.getLength() > 0) {
             Node node = nodelist.item(0).getFirstChild();
@@ -127,40 +127,44 @@ public class WeiboResponse implements java.io.Serializable {
             }
         }
         return "";
-     }
+    }
 
     /*modify by sycheng  add "".equals(str) */
     protected static int getChildInt(String str, Element elem) {
         String str2 = getTextContent(str, elem);
-        if (null == str2 || "".equals(str2)||"null".equals(str)) {
+        if (null == str2 || "".equals(str2) || "null".equals(str)) {
             return -1;
-        } else {
+        }
+        else {
             return Integer.valueOf(str2);
         }
     }
 
     protected static long getChildLong(String str, Element elem) {
         String str2 = getTextContent(str, elem);
-        if (null == str2 || "".equals(str2)||"null".equals(str)) {
+        if (null == str2 || "".equals(str2) || "null".equals(str)) {
             return -1;
-        } else {
+        }
+        else {
             return Long.valueOf(str2);
         }
     }
 
     protected static String getString(String name, JSONObject json, boolean decode) {
         String returnValue = null;
-            try {
-                returnValue = json.getString(name);
-                if (decode) {
-                    try {
-                        returnValue = URLDecoder.decode(returnValue, "UTF-8");
-                    } catch (UnsupportedEncodingException ignore) {
-                    }
+        try {
+            returnValue = json.getString(name);
+            if (decode) {
+                try {
+                    returnValue = URLDecoder.decode(returnValue, "UTF-8");
                 }
-            } catch (JSONException ignore) {
-                // refresh_url could be missing
+                catch (UnsupportedEncodingException ignore) {
+                }
             }
+        }
+        catch (JSONException ignore) {
+            // refresh_url could be missing
+        }
         return returnValue;
     }
 
@@ -168,39 +172,39 @@ public class WeiboResponse implements java.io.Serializable {
         String value = getTextContent(str, elem);
         return Boolean.valueOf(value);
     }
-    protected static Date getChildDate(String str, Element elem) throws WeiboException
-    {
+
+    protected static Date getChildDate(String str, Element elem) throws WeiboException {
         return getChildDate(str, elem, "EEE MMM d HH:mm:ss z yyyy");
     }
 
-    protected static Date getChildDate(String str, Element elem, String format) throws WeiboException
-    {
-        return parseDate(getChildText(str, elem),format);
+    protected static Date getChildDate(String str, Element elem, String format) throws WeiboException {
+        return parseDate(getChildText(str, elem), format);
     }
-    protected static Date parseDate(String str, String format) throws WeiboException
-    {
-        if(str==null||"".equals(str)){
-        	return null;
+
+    protected static Date parseDate(String str, String format) throws WeiboException {
+        if (str == null || "".equals(str)) {
+            return null;
         }
-    	SimpleDateFormat sdf = formatMap.get(format);
+        SimpleDateFormat sdf = formatMap.get(format);
         if (null == sdf) {
             sdf = new SimpleDateFormat(format, Locale.ENGLISH);
             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             formatMap.put(format, sdf);
         }
         try {
-            synchronized(sdf){
+            synchronized (sdf) {
                 // SimpleDateFormat is not thread safe
                 return sdf.parse(str);
             }
-        } catch (ParseException pe) {
+        }
+        catch (ParseException pe) {
             throw new WeiboException("Unexpected format(" + str + ") returned from sina.com.cn");
         }
     }
 
     protected static int getInt(String key, JSONObject json) throws JSONException {
         String str = json.getString(key);
-        if(null == str || "".equals(str)||"null".equals(str)){
+        if (null == str || "".equals(str) || "null".equals(str)) {
             return -1;
         }
         return Integer.parseInt(str);
@@ -208,14 +212,15 @@ public class WeiboResponse implements java.io.Serializable {
 
     protected static long getLong(String key, JSONObject json) throws JSONException {
         String str = json.getString(key);
-        if(null == str || "".equals(str)||"null".equals(str)){
+        if (null == str || "".equals(str) || "null".equals(str)) {
             return -1;
         }
         return Long.parseLong(str);
     }
+
     protected static boolean getBoolean(String key, JSONObject json) throws JSONException {
         String str = json.getString(key);
-        if(null == str || "".equals(str)||"null".equals(str)){
+        if (null == str || "".equals(str) || "null".equals(str)) {
             return false;
         }
         return Boolean.valueOf(str);

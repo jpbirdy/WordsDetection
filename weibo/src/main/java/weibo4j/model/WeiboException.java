@@ -32,6 +32,7 @@ import weibo4j.org.json.JSONObject;
 /**
  * An exception class that will be thrown when WeiboAPI calls are failed.<br>
  * In case the Weibo server returned HTTP error code, you can get the HTTP status code using getStatusCode() method.
+ *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public class WeiboException extends Exception {
@@ -48,14 +49,15 @@ public class WeiboException extends Exception {
     public WeiboException(Exception cause) {
         super(cause);
     }
-    
-    public WeiboException(String msg , int statusCode) throws JSONException {
-    	super(msg);
-    	this.statusCode = statusCode;
+
+    public WeiboException(String msg, int statusCode) throws JSONException {
+        super(msg);
+        this.statusCode = statusCode;
     }
 
-    public WeiboException(String msg , JSONObject json, int statusCode) throws JSONException {
-        super(msg + "\n error:" + json.getString("error") +" error_code:" + json.getInt("error_code") + json.getString("request"));
+    public WeiboException(String msg, JSONObject json, int statusCode) throws JSONException {
+        super(msg + "\n error:" + json.getString("error") + " error_code:" + json.getInt("error_code") +
+                json.getString("request"));
         this.statusCode = statusCode;
         this.errorCode = json.getInt("error_code");
         this.error = json.getString("error");
@@ -77,16 +79,16 @@ public class WeiboException extends Exception {
         return this.statusCode;
     }
 
-	public int getErrorCode() {
-		return errorCode;
-	}
+    public int getErrorCode() {
+        return errorCode;
+    }
 
-	public String getRequest() {
-		return request;
-	}
+    public String getRequest() {
+        return request;
+    }
 
-	public String getError() {
-		return error;
-	}
-    
+    public String getError() {
+        return error;
+    }
+
 }

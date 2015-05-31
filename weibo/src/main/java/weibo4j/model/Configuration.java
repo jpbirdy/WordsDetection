@@ -42,13 +42,15 @@ public class Configuration {
         init();
     }
 
-    /*package*/ static void init() {
+    /*package*/
+    static void init() {
         defaultProperty = new Properties();
         defaultProperty.setProperty("weibo4j.debug", "true");
-//        defaultProperty.setProperty("weibo4j.source", Weibo.CONSUMER_KEY);
+        //        defaultProperty.setProperty("weibo4j.source", Weibo.CONSUMER_KEY);
         //defaultProperty.setProperty("weibo4j.clientVersion","");
         defaultProperty.setProperty("weibo4j.clientURL", "http://open.t.sina.com.cn/-{weibo4j.clientVersion}.xml");
-        defaultProperty.setProperty("weibo4j.http.userAgent", "weibo4j http://open.t.sina.com.cn/ /{weibo4j.clientVersion}");
+        defaultProperty
+                .setProperty("weibo4j.http.userAgent", "weibo4j http://open.t.sina.com.cn/ /{weibo4j.clientVersion}");
         //defaultProperty.setProperty("weibo4j.user","");
         //defaultProperty.setProperty("weibo4j.password","");
         defaultProperty.setProperty("weibo4j.http.useSSL", "false");
@@ -71,7 +73,8 @@ public class Configuration {
             // @see http://developer.android.com/reference/dalvik/system/VMRuntime.html
             Class.forName("dalvik.system.VMRuntime");
             defaultProperty.setProperty("weibo4j.dalvik", "true");
-        } catch (ClassNotFoundException cnfe) {
+        }
+        catch (ClassNotFoundException cnfe) {
             defaultProperty.setProperty("weibo4j.dalvik", "false");
         }
         DALVIK = getBoolean("weibo4j.dalvik");
@@ -84,11 +87,12 @@ public class Configuration {
     private static boolean loadProperties(Properties props, String path) {
         try {
             File file = new File(path);
-            if(file.exists() && file.isFile()){
+            if (file.exists() && file.isFile()) {
                 props.load(new FileInputStream(file));
                 return true;
             }
-        } catch (Exception ignore) {
+        }
+        catch (Exception ignore) {
         }
         return false;
     }
@@ -97,7 +101,8 @@ public class Configuration {
         try {
             props.load(is);
             return true;
-        } catch (Exception ignore) {
+        }
+        catch (Exception ignore) {
         }
         return false;
     }
@@ -112,7 +117,8 @@ public class Configuration {
     public static boolean useSSL() {
         return getBoolean("weibo4j.http.useSSL");
     }
-    public static String getScheme(){
+
+    public static String getScheme() {
         return useSSL() ? "https://" : "http://";
     }
 
@@ -253,7 +259,8 @@ public class Configuration {
         String value = getProperty(name);
         try {
             return Integer.parseInt(value);
-        } catch (NumberFormatException nfe) {
+        }
+        catch (NumberFormatException nfe) {
             return -1;
         }
     }
@@ -262,7 +269,8 @@ public class Configuration {
         String value = getProperty(name, String.valueOf(fallbackValue));
         try {
             return Integer.parseInt(value);
-        } catch (NumberFormatException nfe) {
+        }
+        catch (NumberFormatException nfe) {
             return -1;
         }
     }
@@ -271,7 +279,8 @@ public class Configuration {
         String value = getProperty(name);
         try {
             return Long.parseLong(value);
-        } catch (NumberFormatException nfe) {
+        }
+        catch (NumberFormatException nfe) {
             return -1;
         }
     }
@@ -293,7 +302,8 @@ public class Configuration {
                     value = System.getProperty(fallback);
                 }
             }
-        } catch (AccessControlException ace) {
+        }
+        catch (AccessControlException ace) {
             // Unsigned applet cannot access System properties
             value = fallbackValue;
         }
@@ -311,15 +321,15 @@ public class Configuration {
             if (closeBrace > (openBrace + 1)) {
                 String name = value.substring(openBrace + 1, closeBrace);
                 if (name.length() > 0) {
-                    newValue = value.substring(0, openBrace) + getProperty(name)
-                            + value.substring(closeBrace + 1);
+                    newValue = value.substring(0, openBrace) + getProperty(name) + value.substring(closeBrace + 1);
 
                 }
             }
         }
         if (newValue.equals(value)) {
             return value;
-        } else {
+        }
+        else {
             return replace(newValue);
         }
     }

@@ -33,10 +33,11 @@ public class Version {
     private final static String VERSION = "1.0.0";
     private final static String TITLE = "weibo4jV2";
 
-    public static String getVersion(){
+    public static String getVersion() {
         return VERSION;
     }
+
     public static void main(String[] args) {
-        System.out.println(TITLE +" " + VERSION);
+        System.out.println(TITLE + " " + VERSION);
     }
 }
