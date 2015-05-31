@@ -9,17 +9,18 @@ import java.util.List;
 
 public class GetTrendsHourly {
 
-	public static void main(String[] args) {
-		String access_token = args[0];
-		Trend tm = new Trend(access_token);
-		try {
-			List<Trends> trends = tm.getTrendsHourly();
-			for(Trends ts : trends){
-				Log.logInfo(ts.toString());
-			}
-		} catch (WeiboException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        String access_token = args[0];
+        Trend tm = new Trend(access_token);
+        try {
+            List<Trends> trends = tm.getTrendsHourly();
+            for (Trends ts : trends) {
+                Log.logInfo(ts.toString());
+            }
+        }
+        catch (WeiboException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

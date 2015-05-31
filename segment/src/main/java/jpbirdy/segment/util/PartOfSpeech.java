@@ -14,7 +14,7 @@ import java.util.Map;
  * @class PartOfSpeech
  * @date 14-11-22 18:47
  * @desc 词性
- *
+ * <p/>
  * ag 形语素  形容词性语素。形容词代码为 a，语素代码ｇ前面置以A。  
  * a  形容词  取英语形容词 adjective的第1个字母。  ad 副形词  直接作状语的形容词。形容词代码 a和副词代码d并在一起。  
  * an 名形词  具有名词功能的形容词。形容词代码 a和名词代码n并在一起。  
@@ -47,95 +47,78 @@ import java.util.Map;
  * w 标点符号    
  * x 非语素字  非语素字只是一个符号，字母 x通常用于代表未知数、符号。  
  * y 语气词  取汉字“语”的声母。
- *
  * @see https://gist.github.com/hankcs/d7dbe79dde3f85b423e4
  * 或http://wenku.baidu.com/link?url=pLMLZ2dBiCx5L3RR3MK4_QMbDbzWSZUx_Jtlkj7fXV1qpM5vayLDx8g9r4irmCquoi1GTl0N3xnYqHKCTx1Er4aDS-LF3s8sOAjrcpVl8J7
  * ICTPOS3.0词性标记集
  */
-public class PartOfSpeech
-{
+public class PartOfSpeech {
 
     private SpeechEntity entity;
-    public static Map<String,SpeechEntity> map = null;
+    public static Map<String, SpeechEntity> map = null;
 
-    static
-    {
+    static {
         map = new HashMap<String, SpeechEntity>();
-        map.put("",new SpeechEntity("none","无词性",""));
-        try
-        {
-            BufferedReader br = new BufferedReader(new InputStreamReader(PartOfSpeech.class.getClassLoader().getResourceAsStream("main/resources/speech.txt")));
+        map.put("", new SpeechEntity("none", "无词性", ""));
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    PartOfSpeech.class.getClassLoader().getResourceAsStream("main/resources/speech.txt"), "UTF-8"));
             String temp;
-            while( (temp = br.readLine()) != null)
-            {
-                dealSpeech(map,temp);
+            while ((temp = br.readLine()) != null) {
+                dealSpeech(map, temp);
             }
 
         }
-        catch (FileNotFoundException e)
-        {
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
 
-
-    public PartOfSpeech()
-    {
+    public PartOfSpeech() {
         map.get("");
     }
 
-    public PartOfSpeech(String str)
-    {
+    public PartOfSpeech(String str) {
         entity = map.get(str);
-        if(entity == null)
-        {
+        if (entity == null) {
             System.out.println(str);
-            entity = new SpeechEntity(str,"","");
+            entity = new SpeechEntity(str, "", "");
         }
     }
 
-    public static void dealSpeech(Map<String,SpeechEntity> map,String speech)
-    {
-//        System.out.println(speech);
+    public static void dealSpeech(Map<String, SpeechEntity> map, String speech) {
+        //        System.out.println(speech);
         String[] speechs = speech.split(" ");
-//        System.out.println(speechs.length);
-        if(speechs.length == 2)
-        {
-            map.put(speechs[0] , new SpeechEntity(speechs[0],speechs[1]));
+        //        System.out.println(speechs.length);
+        if (speechs.length == 2) {
+            map.put(speechs[0], new SpeechEntity(speechs[0], speechs[1]));
         }
-        else
-        {
-            map.put(speechs[0] , new SpeechEntity(speechs[0],speechs[1],speechs[2]));
+        else {
+            map.put(speechs[0], new SpeechEntity(speechs[0], speechs[1], speechs[2]));
         }
     }
 
 
-    public SpeechEntity getEntity()
-    {
+    public SpeechEntity getEntity() {
         return entity;
     }
 
-    public void setEntity(SpeechEntity entity)
-    {
+    public void setEntity(SpeechEntity entity) {
         this.entity = entity;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "PartOfSpeech{" +
                 "entity=" + entity +
                 '}';
     }
 
-    public static void main(String[] args) throws Exception
-    {
-//        System.out.println("Hello World!");
+    public static void main(String[] args) throws Exception {
+        //        System.out.println("Hello World!");
     }
 }

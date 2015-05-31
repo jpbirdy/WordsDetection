@@ -14,39 +14,32 @@ import jpbirdy.segment.SegToken;
  * @date 14-11-23 11:00
  * @desc
  */
-public class Jumper
-{
-    private double minDistance ;
+public class Jumper {
+    private double minDistance;
     private SegToken token;
 
-    public Jumper()
-    {
+    public Jumper() {
         minDistance = 0;
         token = null;
     }
 
-    public double getMinDistance()
-    {
+    public double getMinDistance() {
         return minDistance;
     }
 
-    public void setMinDistance(double minDistance)
-    {
+    public void setMinDistance(double minDistance) {
         this.minDistance = minDistance;
     }
 
-    public SegToken getToken()
-    {
+    public SegToken getToken() {
         return token;
     }
 
-    public void setToken(SegToken token)
-    {
+    public void setToken(SegToken token) {
         this.token = token;
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         System.out.println("Hello World!");
     }
 }

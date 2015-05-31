@@ -13,10 +13,8 @@ import java.net.URLDecoder;
  * @date 14-11-27 11:55
  * @desc
  */
-public class CharsetDemo
-{
-    public static void main(String[] args) throws Exception
-    {
+public class CharsetDemo {
+    public static void main(String[] args) throws Exception {
         String a = "\\xe7\\xac\\xac01\\xe5\\x8d\\xb7";
         a = a.replace("\\x", "%");
         System.out.println(a);

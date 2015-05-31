@@ -3,78 +3,78 @@ package weibo4j.model;
 import java.util.List;
 
 public class CommentWapper {
-	
-	private List<Comment> comments;
 
-	private long previousCursor;
+    private List<Comment> comments;
 
-	private long nextCursor;
-	
-	private long totalNumber;
-	
-	private String hasvisible;
-	
-	public CommentWapper(List<Comment> comments, long previousCursor,
-			long nextCursor, long totalNumber,String hasvisible) {
-		this.comments = comments;
-		this.previousCursor = previousCursor;
-		this.nextCursor = nextCursor;
-		this.totalNumber = totalNumber;
-		this.hasvisible = hasvisible;
-	}
+    private long previousCursor;
 
-	public List<Comment> getComments() {
-		return comments;
-	}
+    private long nextCursor;
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+    private long totalNumber;
 
-	public long getPreviousCursor() {
-		return previousCursor;
-	}
+    private String hasvisible;
 
-	public void setPreviousCursor(long previousCursor) {
-		this.previousCursor = previousCursor;
-	}
+    public CommentWapper(List<Comment> comments, long previousCursor, long nextCursor, long totalNumber,
+                         String hasvisible) {
+        this.comments = comments;
+        this.previousCursor = previousCursor;
+        this.nextCursor = nextCursor;
+        this.totalNumber = totalNumber;
+        this.hasvisible = hasvisible;
+    }
 
-	public long getNextCursor() {
-		return nextCursor;
-	}
+    public List<Comment> getComments() {
+        return comments;
+    }
 
-	public void setNextCursor(long nextCursor) {
-		this.nextCursor = nextCursor;
-	}
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
-	public long getTotalNumber() {
-		return totalNumber;
-	}
+    public long getPreviousCursor() {
+        return previousCursor;
+    }
 
-	public void setTotalNumber(long totalNumber) {
-		this.totalNumber = totalNumber;
-	}
+    public void setPreviousCursor(long previousCursor) {
+        this.previousCursor = previousCursor;
+    }
 
-	public String getHasvisible() {
-		return hasvisible;
-	}
+    public long getNextCursor() {
+        return nextCursor;
+    }
 
-	public void setHasvisible(String hasvisible) {
-		this.hasvisible = hasvisible;
-	}
-		
-	@Override
-	public String toString() {
-		String str = "";
-		str += "CommentWapper [comments=[";
-		for (Comment c : comments) {
-			str += c.toString() + " ";
-		}
-		str += "], ";
-		str += "previousCursor=" + previousCursor + ", ";
-		str += "nextCursor=" + nextCursor + ", ";
-		str += "totalNumber=" + totalNumber + ", ";
-		str += "hasvisible=" + hasvisible + "]";
-		return str;
-	}
+    public void setNextCursor(long nextCursor) {
+        this.nextCursor = nextCursor;
+    }
+
+    public long getTotalNumber() {
+        return totalNumber;
+    }
+
+    public void setTotalNumber(long totalNumber) {
+        this.totalNumber = totalNumber;
+    }
+
+    public String getHasvisible() {
+        return hasvisible;
+    }
+
+    public void setHasvisible(String hasvisible) {
+        this.hasvisible = hasvisible;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += "CommentWapper [comments=[";
+        for (Comment c : comments) {
+            str += c.toString() + " ";
+        }
+        str += "], ";
+        str += "previousCursor=" + previousCursor + ", ";
+        str += "nextCursor=" + nextCursor + ", ";
+        str += "totalNumber=" + totalNumber + ", ";
+        str += "hasvisible=" + hasvisible + "]";
+        return str;
+    }
 }

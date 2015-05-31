@@ -14,62 +14,51 @@ import java.util.List;
  * @date 15-5-19 10:49
  * @desc
  */
-public class MapEntity
-{
+public class MapEntity {
     private String word;
-    private List<String> left,right;
+    private List<String> left, right;
     private int repeatNum;
 
 
-    public MapEntity()
-    {
+    public MapEntity() {
         left = new ArrayList<String>();
         right = new ArrayList<String>();
     }
 
-    public String getWord()
-    {
+    public String getWord() {
         return word;
     }
 
-    public void setWord(String word)
-    {
+    public void setWord(String word) {
         this.word = word;
     }
 
-    public List<String> getLeft()
-    {
+    public List<String> getLeft() {
         return left;
     }
 
-    public void setLeft(List<String> left)
-    {
+    public void setLeft(List<String> left) {
         this.left = left;
     }
 
-    public List<String> getRight()
-    {
+    public List<String> getRight() {
         return right;
     }
 
-    public void setRight(List<String> right)
-    {
+    public void setRight(List<String> right) {
         this.right = right;
     }
 
-    public void addOne()
-    {
+    public void addOne() {
         this.repeatNum++;
     }
 
-    public int getRepeatNum()
-    {
+    public int getRepeatNum() {
         return repeatNum;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "MapEntity{" +
                 "word='" + word + '\'' +
                 ", left=" + left +
@@ -78,8 +67,7 @@ public class MapEntity
                 '}';
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         System.out.println("Hello World!");
     }
 }

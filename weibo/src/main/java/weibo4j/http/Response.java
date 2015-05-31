@@ -54,19 +54,17 @@ public class Response {
     static Logger log = Logger.getLogger(Response.class.getName());
 
 
-    private static ThreadLocal<DocumentBuilder> builders =
-            new ThreadLocal<DocumentBuilder>() {
-                @Override
-                protected DocumentBuilder initialValue() {
-                    try {
-                        return
-                                DocumentBuilderFactory.newInstance()
-                                        .newDocumentBuilder();
-                    } catch (ParserConfigurationException ex) {
-                        throw new ExceptionInInitializerError(ex);
-                    }
-                }
-            };
+    private static ThreadLocal<DocumentBuilder> builders = new ThreadLocal<DocumentBuilder>() {
+        @Override
+        protected DocumentBuilder initialValue() {
+            try {
+                return DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            }
+            catch (ParserConfigurationException ex) {
+                throw new ExceptionInInitializerError(ex);
+            }
+        }
+    };
 
     private int statusCode;
     private Document responseAsDocument = null;
@@ -75,13 +73,14 @@ public class Response {
     private HttpURLConnection con;
     private boolean streamConsumed = false;
 
-    public Response()  {
-    	
+    public Response() {
+
     }
+
     public Response(HttpURLConnection con) throws IOException {
         this.con = con;
         this.statusCode = con.getResponseCode();
-        if(null == (is = con.getErrorStream())){
+        if (null == (is = con.getErrorStream())) {
             is = con.getInputStream();
         }
         if (null != is && "gzip".equals(con.getContentEncoding())) {
@@ -100,24 +99,25 @@ public class Response {
     }
 
     public String getResponseHeader(String name) {
-    	if (con != null)
-    		return con.getHeaderField(name);
-    	else
-    		return null;
+        if (con != null)
+            return con.getHeaderField(name);
+        else
+            return null;
     }
 
     /**
      * Returns the response stream.<br>
      * This method cannot be called after calling asString() or asDcoument()<br>
      * It is suggested to call disconnect() after consuming the stream.
-     *
+     * <p/>
      * Disconnects the internal HttpURLConnection silently.
+     *
      * @return response body stream
      * @throws weibo4j.model.WeiboException
      * @see #disconnect()
      */
     public InputStream asStream() {
-        if(streamConsumed){
+        if (streamConsumed) {
             throw new IllegalStateException("Stream has already been consumed.");
         }
         return is;
@@ -126,12 +126,12 @@ public class Response {
     /**
      * Returns the response body as string.<br>
      * Disconnects the internal HttpURLConnection silently.
+     *
      * @return response body
      * @throws weibo4j.model.WeiboException
      */
-    public String asString() throws WeiboException
-    {
-        if(null == responseAsString){
+    public String asString() throws WeiboException {
+        if (null == responseAsString) {
             BufferedReader br;
             try {
                 InputStream stream = asStream();
@@ -145,17 +145,19 @@ public class Response {
                     buf.append(line).append("\n");
                 }
                 this.responseAsString = buf.toString();
-                if(Configuration.isDalvik()){
+                if (Configuration.isDalvik()) {
                     this.responseAsString = unescape(responseAsString);
                 }
                 log(responseAsString);
                 stream.close();
                 con.disconnect();
                 streamConsumed = true;
-            } catch (NullPointerException npe) {
+            }
+            catch (NullPointerException npe) {
                 // don't remember in which case npe can be thrown
                 throw new WeiboException(npe.getMessage(), npe);
-            } catch (IOException ioe) {
+            }
+            catch (IOException ioe) {
                 throw new WeiboException(ioe.getMessage(), ioe);
             }
         }
@@ -165,19 +167,21 @@ public class Response {
     /**
      * Returns the response body as org.w3c.dom.Document.<br>
      * Disconnects the internal HttpURLConnection silently.
+     *
      * @return response body as org.w3c.dom.Document
      * @throws weibo4j.model.WeiboException
      */
-    public Document asDocument() throws WeiboException
-    {
+    public Document asDocument() throws WeiboException {
         if (null == responseAsDocument) {
             try {
                 // it should be faster to read the inputstream directly.
                 // but makes it difficult to troubleshoot
                 this.responseAsDocument = builders.get().parse(new ByteArrayInputStream(asString().getBytes("UTF-8")));
-            } catch (SAXException saxe) {
+            }
+            catch (SAXException saxe) {
                 throw new WeiboException("The response body was not well-formed:\n" + responseAsString, saxe);
-            } catch (IOException ioe) {
+            }
+            catch (IOException ioe) {
                 throw new WeiboException("There's something with the connection.", ioe);
             }
         }
@@ -187,14 +191,15 @@ public class Response {
     /**
      * Returns the response body as sinat4j.org.json.JSONObject.<br>
      * Disconnects the internal HttpURLConnection silently.
+     *
      * @return response body as sinat4j.org.json.JSONObject
      * @throws weibo4j.model.WeiboException
      */
-    public JSONObject asJSONObject() throws WeiboException
-    {
+    public JSONObject asJSONObject() throws WeiboException {
         try {
             return new JSONObject(asString());
-        } catch (JSONException jsone) {
+        }
+        catch (JSONException jsone) {
             throw new WeiboException(jsone.getMessage() + ":" + this.responseAsString, jsone);
         }
     }
@@ -202,14 +207,15 @@ public class Response {
     /**
      * Returns the response body as sinat4j.org.json.JSONArray.<br>
      * Disconnects the internal HttpURLConnection silently.
+     *
      * @return response body as sinat4j.org.json.JSONArray
      * @throws weibo4j.model.WeiboException
      */
-    public JSONArray asJSONArray() throws WeiboException
-    {
+    public JSONArray asJSONArray() throws WeiboException {
         try {
-        	return  new JSONArray(asString());
-        } catch (Exception jsone) {
+            return new JSONArray(asString());
+        }
+        catch (Exception jsone) {
             throw new WeiboException(jsone.getMessage() + ":" + this.responseAsString, jsone);
         }
     }
@@ -217,12 +223,13 @@ public class Response {
     public InputStreamReader asReader() {
         try {
             return new InputStreamReader(is, "UTF-8");
-        } catch (java.io.UnsupportedEncodingException uee) {
+        }
+        catch (java.io.UnsupportedEncodingException uee) {
             return new InputStreamReader(is);
         }
     }
 
-    public void disconnect(){
+    public void disconnect() {
         con.disconnect();
     }
 
@@ -230,17 +237,16 @@ public class Response {
 
     /**
      * Unescape UTF-8 escaped characters to string.
-     * @author pengjianq...@gmail.com
      *
      * @param original The string to be unescaped.
      * @return The unescaped string
+     * @author pengjianq...@gmail.com
      */
     public static String unescape(String original) {
         Matcher mm = escaped.matcher(original);
         StringBuffer unescaped = new StringBuffer();
         while (mm.find()) {
-            mm.appendReplacement(unescaped, Character.toString(
-                    (char) Integer.parseInt(mm.group(1), 10)));
+            mm.appendReplacement(unescaped, Character.toString((char) Integer.parseInt(mm.group(1), 10)));
         }
         mm.appendTail(unescaped);
         return unescaped.toString();
@@ -248,7 +254,7 @@ public class Response {
 
     @Override
     public String toString() {
-        if(null != responseAsString){
+        if (null != responseAsString) {
             return responseAsString;
         }
         return "Response{" +
@@ -259,10 +265,10 @@ public class Response {
                 ", con=" + con +
                 '}';
     }
-    
+
     private void log(String message) {
         if (DEBUG) {
-        	log.debug("[" + new java.util.Date() + "]" + message);
+            log.debug("[" + new java.util.Date() + "]" + message);
         }
     }
 
@@ -272,16 +278,16 @@ public class Response {
         }
     }
 
-	public String getResponseAsString() {
-		return responseAsString;
-	}
+    public String getResponseAsString() {
+        return responseAsString;
+    }
 
-	public void setResponseAsString(String responseAsString) {
-		this.responseAsString = responseAsString;
-	}
+    public void setResponseAsString(String responseAsString) {
+        this.responseAsString = responseAsString;
+    }
 
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
-	}
-    
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
 }

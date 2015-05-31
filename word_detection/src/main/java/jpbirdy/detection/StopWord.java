@@ -17,72 +17,67 @@ import java.util.List;
  * @date 15-5-19 11:13
  * @desc
  */
-public class StopWord
-{
+public class StopWord {
     private static List<String> stopWords;
     public static Segmenter seg = null;
-    static
-    {
-        try
-        {
+
+    static {
+        try {
             loadStopWords();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void loadStopWords() throws IOException
-    {
-        if(stopWords != null) return ;
+    private static void loadStopWords() throws IOException {
+        if (stopWords != null)
+            return;
         stopWords = new ArrayList<String>();
         stopWords.add(" ");
-        InputStream stopFile = Class.class.getClassLoader().getResourceAsStream("/main/resources/stops.txt");
-
-        if(stopFile == null)
-        {
+        InputStream stopFile = StopWord.class.getClassLoader().getResourceAsStream("main/resources/stops.txt");
+        if (stopFile == null) {
             System.err.println("停词文件不存在！");
             return;
         }
-        BufferedReader br = new BufferedReader(new InputStreamReader(stopFile));
+        BufferedReader br = new BufferedReader(new InputStreamReader(stopFile, "UTF-8"));
 
         String line;
 
-        while((line = br.readLine()) != null)
-        {
+        while ((line = br.readLine()) != null) {
             stopWords.add(line);
         }
         System.out.println("停词加载成功！");
-//        System.out.println(stopWords);
+        //        System.out.println(stopWords);
     }
 
 
-    public static boolean hasStopWord(String word)
-    {
+    public static boolean hasStopWord(String word) {
         int len = word.length();
         int alphaNum = 0;
         int chineseNum = 0;
 
-        for(int i=0 ; i<len ; i++)
-        {
+        for (int i = 0; i < len; i++) {
             char ch = word.charAt(i);
-            if (ch >= 'a' && ch<='z') alphaNum++;
-            else if(ch >='A' && ch<='Z') alphaNum++;
-            else if(ch>='0' && ch <='9') alphaNum++;
-            if(isChinese(ch)) chineseNum++;
+            if (ch >= 'a' && ch <= 'z')
+                alphaNum++;
+            else if (ch >= 'A' && ch <= 'Z')
+                alphaNum++;
+            else if (ch >= '0' && ch <= '9')
+                alphaNum++;
+            if (isChinese(ch))
+                chineseNum++;
         }
-//        if(alphaNum > len/2) return true;
-        if(chineseNum < 1) return true;
-        for(String stop:stopWords)
-        {
-            if(word.contains(stop))
-            {
+        //        if(alphaNum > len/2) return true;
+        if (chineseNum < 1)
+            return true;
+        for (String stop : stopWords) {
+            if (word.contains(stop)) {
                 return true;
             }
         }
 
-        if(seg.segment(word).size() <= 1)
+        if (seg.segment(word).size() <= 1)
             return true;
         return false;
     }
@@ -98,14 +93,11 @@ public class StopWord
                 ub == Character.UnicodeBlock.GENERAL_PUNCTUATION;
     }
 
-    public static boolean containsEmoji(String source)
-    {
+    public static boolean containsEmoji(String source) {
         int len = source.length();
-        for (int i = 0; i < len; i++)
-        {
+        for (int i = 0; i < len; i++) {
             char codePoint = source.charAt(i);
-            if (isEmojiCharacter(codePoint))
-            {
+            if (isEmojiCharacter(codePoint)) {
                 //do nothing，判断到了这里表明，确认有表情字符
                 return true;
             }
@@ -123,8 +115,7 @@ public class StopWord
                 ((codePoint >= 0x10000) && (codePoint <= 0x10FFFF));
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         loadStopWords();
 
     }

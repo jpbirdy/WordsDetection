@@ -45,32 +45,34 @@ public class IDs extends WeiboResponse {
     private long previousCursor;  //当前cursor
     private long nextCursor;      //下一个cursor
     private static final long serialVersionUID = -6585026560164704953L;
-    /*package*/ IDs(Response res,Weibo w) throws WeiboException {
+
+    /*package*/ IDs(Response res, Weibo w) throws WeiboException {
         super(res);
-        if("[]\n".equals(res.asString())){
-        	previousCursor=0;
-        	nextCursor=0;
-        	ids= new long[0];
-        	return;
+        if ("[]\n".equals(res.asString())) {
+            previousCursor = 0;
+            nextCursor = 0;
+            ids = new long[0];
+            return;
         }
-        JSONObject json=  res.asJSONObject();
+        JSONObject json = res.asJSONObject();
         try {
-        	previousCursor = json.getLong("previous_cursor");
+            previousCursor = json.getLong("previous_cursor");
             nextCursor = json.getLong("next_cursor");
-        	
-            if(!json.isNull("ids")){
-        		JSONArray jsona= json.getJSONArray("ids");
-        		int size=jsona.length();
-        		ids =new long[ size];
-        		for (int i = 0; i < size; i++) {
-        			ids[i] =jsona.getLong(i);
-				}
-        	}
-        	
-         } catch (JSONException jsone) {
-             throw new WeiboException(jsone);
-         } 
-        
+
+            if (!json.isNull("ids")) {
+                JSONArray jsona = json.getJSONArray("ids");
+                int size = jsona.length();
+                ids = new long[size];
+                for (int i = 0; i < size; i++) {
+                    ids[i] = jsona.getLong(i);
+                }
+            }
+
+        }
+        catch (JSONException jsone) {
+            throw new WeiboException(jsone);
+        }
+
     }
 
     public long[] getIDs() {
@@ -78,15 +80,13 @@ public class IDs extends WeiboResponse {
     }
 
     /**
-     *
      * @since weibo4j-V2 1.0.0
      */
-    public boolean hasPrevious(){
+    public boolean hasPrevious() {
         return 0 != previousCursor;
     }
 
     /**
-     *
      * @since weibo4j-V2 1.0.0
      */
     public long getPreviousCursor() {
@@ -94,15 +94,13 @@ public class IDs extends WeiboResponse {
     }
 
     /**
-     *
      * @since weibo4j-V2 1.0.0
      */
-    public boolean hasNext(){
+    public boolean hasNext() {
         return 0 != nextCursor;
     }
 
     /**
-     *
      * @since weibo4j-V2 1.0.0
      */
     public long getNextCursor() {
@@ -111,12 +109,15 @@ public class IDs extends WeiboResponse {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof IDs)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof IDs))
+            return false;
 
         IDs iDs = (IDs) o;
 
-        if (!Arrays.equals(ids, iDs.ids)) return false;
+        if (!Arrays.equals(ids, iDs.ids))
+            return false;
 
         return true;
     }
